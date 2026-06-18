@@ -5,16 +5,18 @@ WORKDIR /app
 # Copiamos todo el contenido del repositorio
 COPY . .
 
-# Buscamos el archivo pom.xml dinámicamente y compilamos desde donde esté
+# Compilamos la aplicación
 RUN mvn clean package -DskipTests
 
 # === Paso 2: Crear la imagen de ejecución ===
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
-# Buscamos el .jar generado dinámicamente sin importar la carpeta interna
-COPY --from=build /app/**/target/*.jar app.jar
+# COPIA EXACTA: Traemos el jar desde la ruta donde Maven lo acaba de generar
+COPY --from=build /app/target/api-0.0.1-SNAPSHOT.jar app.jar
 
+# Exponemos el puerto
 EXPOSE 8081
 
+# Comando de arranque
 ENTRYPOINT ["java", "-jar", "app.jar"]
