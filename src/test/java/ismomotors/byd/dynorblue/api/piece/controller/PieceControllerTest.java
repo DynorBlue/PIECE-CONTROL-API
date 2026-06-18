@@ -1,5 +1,7 @@
 package ismomotors.byd.dynorblue.api.piece.controller;
 
+import ismomotors.byd.dynorblue.api.config.JwtAuthenticationFilter;
+import ismomotors.byd.dynorblue.api.config.JwtUtil;
 import ismomotors.byd.dynorblue.api.exception.ResourceNotFoundException;
 import ismomotors.byd.dynorblue.api.piece.enums.PieceStatus;
 import ismomotors.byd.dynorblue.api.piece.enums.Stock;
@@ -38,6 +40,12 @@ class PieceControllerTest {
 
     @MockitoBean
     private PieceService service;
+
+    @MockitoBean
+    private JwtUtil jwtUtil;
+
+    @MockitoBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private final LocalDateTime now = LocalDateTime.now();
     private final String requestJson = """

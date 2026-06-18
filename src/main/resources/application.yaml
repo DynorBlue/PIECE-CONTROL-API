@@ -1,3 +1,6 @@
+server:
+  port: ${PORT:8080}
+
 spring:
   datasource:
     # URL corregida: apuntando al pooler, puerto 6543 y con el parámetro para evitar conflictos de Statements
@@ -13,3 +16,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+app:
+  jwt:
+    secret: "a2V5LXN1cGVyLXNlY3JldGEtZGUtZmlybWEtZGUtdG9rZW5zLWp3dC1wYXJhLXByb2R1Y2Npb24tY2FtYmlhci1hLTEyOC1iaXRzCg=="
+    expiration-ms: 86400000
