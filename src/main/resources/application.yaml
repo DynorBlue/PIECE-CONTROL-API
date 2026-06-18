@@ -3,21 +3,24 @@ server:
 
 spring:
   datasource:
-    # URL corregida: apuntando al pooler, puerto 6543 y con el parámetro para evitar conflictos de Statements
-    url: jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:6543/postgres?prepareThreshold=0
+    # 1. Si Render inyecta SPRING_DATASOURCE_URL, la usará. Si no, usa tu pooler de Supabase.
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:6543/postgres?prepareThreshold=0}
 
-    # Tus credenciales mapeadas correctamente abajo
-    username: postgres.bzibsjcsqyshzexmghsl
-    password: contraseñaejemplo
+    # 2. Mapeo del usuario del pooler
+    username: ${SPRING_DATASOURCE_USERNAME:postgres.bzibsjcsqyshzexmghsl}
+
+    # 3. Mapeo de la contraseña (usa la de entorno de Render, o tu variable local/texto plano como respaldo)
+    password: ${SPRING_DATASOURCE_PASSWORD:${DB_PASSWORD_BYD:contraseñaejemplo}}
+
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
 
 app:
   jwt:
-    secret: "a2V5LXN1cGVyLXNlY3JldGEtZGUtZmlybWEtZGUtdG9rZW5zLWp3dC1wYXJhLXByb2R1Y2Npb24tY2FtYmlhci1hLTEyOC1iaXRzCg=="
+    # 4. Es altamente recomendado proteger también la firma del JWT en producción
+    secret: ${JWT_SECRET:a2V5LXN1cGVyLXNlY3JldGEtZGUtZmlybWEtZGUtdG9rZW5zLWp3dC1wYXJhLXByb2R1Y2Npb24tY2FtYmlhci1hLTEyOC1iaXRzCg==}
     expiration-ms: 86400000
