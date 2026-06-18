@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    # URL corregida: apuntando al pooler, puerto 6543 y con el parámetro para evitar conflictos de Statements
+    url: jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:6543/postgres?prepareThreshold=0
+
+    # Tus credenciales mapeadas correctamente abajo
+    username: postgres.bzibsjcsqyshzexmghsl
+    password: contraseñaejemplo
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
