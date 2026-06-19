@@ -1,5 +1,6 @@
 package ismomotors.byd.dynorblue.api.piece.converter;
 
+import ismomotors.byd.dynorblue.api.piece.dto.PiecePublicDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceRequestDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceResponseDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceUpdateDTO;
@@ -43,6 +44,25 @@ public class PieceConverter {
     public PieceResponseDTO toResponseDTO(Piece piece) {
         PieceResponseDTO dto = new PieceResponseDTO();
         dto.setIdPiece(piece.getIdPiece());
+        dto.setQrUuid(piece.getQrUuid());
+        dto.setNumberPart(piece.getNumberPart());
+        dto.setVin(piece.getVin());
+        dto.setReportingDate(piece.getReportingDate());
+        dto.setClaimApplicationForm(piece.getClaimApplicationForm());
+        dto.setVehiculo(piece.getVehiculo());
+        dto.setDescription(piece.getDescription());
+        dto.setOperator(piece.getOperator());
+        dto.setDateEntry(piece.getDateEntry());
+        dto.setStock(piece.getStock());
+        dto.setStatus(piece.getStatus());
+        dto.setActive(piece.isActive());
+        return dto;
+    }
+
+    public PiecePublicDTO toPublicDTO(Piece piece) {
+        PiecePublicDTO dto = new PiecePublicDTO();
+        dto.setIdPiece(piece.getIdPiece());
+        dto.setQrUuid(piece.getQrUuid());
         dto.setNumberPart(piece.getNumberPart());
         dto.setVin(piece.getVin());
         dto.setReportingDate(piece.getReportingDate());

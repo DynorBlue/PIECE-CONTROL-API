@@ -3,6 +3,7 @@ package ismomotors.byd.dynorblue.api.piece.service.impl;
 import ismomotors.byd.dynorblue.api.exception.ResourceNotFoundException;
 import ismomotors.byd.dynorblue.api.piece.converter.PieceConverter;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceFilterDTO;
+import ismomotors.byd.dynorblue.api.piece.dto.PiecePublicDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceRequestDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceResponseDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceUpdateDTO;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -79,5 +81,14 @@ public class PieceServiceImpl implements PieceService {
         return repository.findAll(specification.getSpecification(filter)).stream()
                 .map(converter::toResponseDTO)
                 .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PiecePublicDTO findPublicByQrUuid(UUID qrUuid) {
+        Piece piece = repository.findByQrUuid(qrUuid)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Piece not found for QR: " + qrUuid));
+        return converter.toPublicDTO(piece);
     }
 }
