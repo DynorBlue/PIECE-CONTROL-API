@@ -5,6 +5,7 @@ import ismomotors.byd.dynorblue.api.piece.dto.PiecePublicDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceRequestDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceResponseDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceUpdateDTO;
+import ismomotors.byd.dynorblue.api.piece.enums.Stock;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,4 +25,10 @@ public interface PieceService {
     List<PieceResponseDTO> search(PieceFilterDTO filter);
 
     PiecePublicDTO findPublicByQrUuid(UUID qrUuid);
+
+    List<PieceResponseDTO> findByVin(String vin);
+
+    List<PieceResponseDTO> findByOperator(String operator);
+
+    List<PieceResponseDTO> findByStock(Stock stock);
 }
