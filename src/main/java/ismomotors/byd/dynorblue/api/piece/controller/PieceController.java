@@ -4,6 +4,7 @@ import ismomotors.byd.dynorblue.api.piece.dto.PieceFilterDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceRequestDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceResponseDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceUpdateDTO;
+import ismomotors.byd.dynorblue.api.piece.enums.Stock;
 import ismomotors.byd.dynorblue.api.piece.service.PieceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,24 @@ public class PieceController {
     @PostMapping("/filter")
     public ResponseEntity<List<PieceResponseDTO>> filter(@RequestBody PieceFilterDTO filter) {
         List<PieceResponseDTO> response = service.search(filter);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/vin/{vin}")
+    public ResponseEntity<List<PieceResponseDTO>> findByVin(@PathVariable String vin) {
+        List<PieceResponseDTO> response = service.findByVin(vin);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/operator/{operator}")
+    public ResponseEntity<List<PieceResponseDTO>> findByOperator(@PathVariable String operator) {
+        List<PieceResponseDTO> response = service.findByOperator(operator);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/stock/{stock}")
+    public ResponseEntity<List<PieceResponseDTO>> findByStock(@PathVariable Stock stock) {
+        List<PieceResponseDTO> response = service.findByStock(stock);
         return ResponseEntity.ok(response);
     }
 }

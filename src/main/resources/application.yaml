@@ -21,6 +21,9 @@ spring:
 
 app:
   jwt:
-    # 4. Es altamente recomendado proteger también la firma del JWT en producción
-    secret: ${JWT_SECRET:a2V5LXN1cGVyLXNlY3JldGEtZGUtZmlybWEtZGUtdG9rZW5zLWp3dC1wYXJhLXByb2R1Y2Npb24tY2FtYmlhci1hLTEyOC1iaXRzCg==}
+
+    secret: "a2V5LXN1cGVyLXNlY3JldGEtZGUtZmlybWEtZGUtdG9rZW5zLWp3dC1wYXJhLXByb2R1Y2Npb24tY2FtYmlhci1hLTEyOC1iaXRzCg=="
     expiration-ms: 86400000
+  qr:
+    base-url: ${APP_BASE_URL:http://localhost:8080}
+

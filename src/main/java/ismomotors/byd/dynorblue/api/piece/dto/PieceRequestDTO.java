@@ -15,15 +15,12 @@ public class PieceRequestDTO {
     @NotBlank(message = "numberPart is required")
     private String numberPart;
 
-    @NotBlank(message = "vin is required")
     private String vin;
 
     private LocalDateTime reportingDate;
 
-    @NotBlank(message = "claimApplicationForm is required")
     private String claimApplicationForm;
 
-    @NotBlank(message = "vehiculo is required")
     private String vehiculo;
 
     private String description;

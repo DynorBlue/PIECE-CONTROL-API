@@ -3,9 +3,11 @@ package ismomotors.byd.dynorblue.api.piece.service.impl;
 import ismomotors.byd.dynorblue.api.exception.ResourceNotFoundException;
 import ismomotors.byd.dynorblue.api.piece.converter.PieceConverter;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceFilterDTO;
+import ismomotors.byd.dynorblue.api.piece.dto.PiecePublicDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceRequestDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceResponseDTO;
 import ismomotors.byd.dynorblue.api.piece.dto.PieceUpdateDTO;
+import ismomotors.byd.dynorblue.api.piece.enums.Stock;
 import ismomotors.byd.dynorblue.api.piece.entity.Piece;
 import ismomotors.byd.dynorblue.api.piece.repository.PieceRepository;
 import ismomotors.byd.dynorblue.api.piece.repository.PieceSpecification;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -77,6 +80,39 @@ public class PieceServiceImpl implements PieceService {
     @Transactional(readOnly = true)
     public List<PieceResponseDTO> search(PieceFilterDTO filter) {
         return repository.findAll(specification.getSpecification(filter)).stream()
+                .map(converter::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PiecePublicDTO findPublicByQrUuid(UUID qrUuid) {
+        Piece piece = repository.findByQrUuid(qrUuid)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Piece not found for QR: " + qrUuid));
+        return converter.toPublicDTO(piece);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PieceResponseDTO> findByVin(String vin) {
+        return repository.findByVin(vin).stream()
+                .map(converter::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PieceResponseDTO> findByOperator(String operator) {
+        return repository.findByOperator(operator).stream()
+                .map(converter::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PieceResponseDTO> findByStock(Stock stock) {
+        return repository.findByStock(stock).stream()
                 .map(converter::toResponseDTO)
                 .toList();
     }

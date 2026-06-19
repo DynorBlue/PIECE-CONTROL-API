@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface PieceRepository extends JpaRepository<Piece, Integer>, JpaSpecificationExecutor<Piece> {
@@ -26,4 +28,6 @@ public interface PieceRepository extends JpaRepository<Piece, Integer>, JpaSpeci
     List<Piece> findByOperator(String operator);
 
     List<Piece> findByDateEntry(LocalDateTime dateEntry);
+
+    Optional<Piece> findByQrUuid(UUID qrUuid);
 }
